@@ -82,6 +82,7 @@ button:hover {
 #parent-output {
     width: 45%;
     padding: 20px;
+    /* opacity: 0; */
 }
 
 @media only screen and (max-width: 550px) and (min-width: 225px) {

@@ -37,41 +37,25 @@ outputParent.appendChild(outputSet);
 
 //On click Event 
 searchButton.addEventListener("click",() =>{
+    // outputParent.style.opacity = '1';
     const getMapBoxURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/
     ${encodeURI(addressInput.value)}
     .json?access_token=${apiInput.value}`;
-
     //Request MapBox API to tranfer User Address into Coordinates.
-    console.log('comecou');
-    
+
     fetch(getMapBoxURL)
         .then((rawData) => rawData.json())
         .then((Data) =>{
-            console.log("Data", Data);
-            console.log(Data.features[0].center[0], Data.features[0].center[1]);
-            console.log('primeiro fetch');
             const longitude = Data.features[0].center[0];
             const latitude = Data.features[0].center[1];
             const satellite = document.querySelector('#norad');
-            console.log(satellite.value);
 
             const getSatelliteURL = "https://satellites.fly.dev/passes/"+satellite.value+"?lat="+latitude+"&lon="+longitude+"&limit=1&days=15&visible_only=true";
-            
-
             //Request Satellite Location using the Coordinates from last Fetch
             fetch(getSatelliteURL)
             .then((rawData2) => rawData2.json())
             .then((Data2) =>{
                 if(Data2.length > 0){
-                    console.log("Data2", Data2);
-                    console.log(
-                    "Rise",
-                    Data2[0].rise.utc_datetime,
-                    "Culminate",
-                    Data2[0].culmination.utc_datetime,
-                    "Set",
-                    Data2[0].set.utc_datetime
-                    );
                     //Add Satellite information from the API request and Display to user.
                     outputTitle.innerHTML = `The Next Sattellite Pass in ${addressInput.value.toUpperCase()} will be`;
                     outputRise.innerHTML += " " + Data2[0].rise.utc_datetime;
