@@ -67,7 +67,7 @@ searchButton.addEventListener("click",() =>{
                     apiInput.value = '';
                     satellite.value = '';
                 }else{
-                    outputTitle.innerText = "No Satelite passes found in this time frame for this address."
+                    outputTitle.innerText = "No Satelite passes found for this address in this time frame."
                 }
                 
             });
